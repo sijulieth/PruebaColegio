@@ -62,7 +62,7 @@ namespace DAL
 
            public string m_matricula(DTOmatriculas dto)
            {
-               {
+               
                 
                try 
 	            {	        
@@ -91,8 +91,36 @@ namespace DAL
            }
  
            
+           public List<DTOestudiantes> Get_estudiantes()
+           {
+               List<tblestudiantes> l = new List<tblestudiantes>();
+               List<DTOestudiantes> liDto = new List<DTOestudiantes>();
+               foreach (tblestudiantes item in l)
+               {
+                   DTOestudiantes li = new DTOestudiantes();
+                   li.Id = item.Id;
+                   li.Nombres = item.Nombres;
+                   liDto.Add(li);
+               }
+               return liDto;
+            }
 
-       
+ //-------------------------------------------------------
+            public List<DTOcursos> Get_cursos()
+           {
+               List<tblcursos> cur = new List<tblcursos>();
+               List<DTOcursos> liDto = new List<DTOcursos>();
+               foreach (tblcursos item in cur)
+               {
+                   DTOcursos l = new DTOcursos();
+                   l.Id = item.Id;
+                   l.Nivel = item.Nivel;
+                   liDto.Add(l);
+               }
+               return liDto;
+           }
+ //-------------------------------------------------------
+              
 
     }
 
