@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="colegiobdModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblcursos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nivel" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="tblestudiantes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="tblmatriculas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Idcurso" Type="int" />
+          <Property Name="Idest" Type="int" />
+          <Property Name="Nota" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <Association Name="tblmatriculas_ibfk_1">
+          <End Role="tblcursos" Type="Self.tblcursos" Multiplicity="0..1" />
+          <End Role="tblmatriculas" Type="Self.tblmatriculas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcursos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblmatriculas">
+              <PropertyRef Name="Idcurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tblmatriculas_ibfk_2">
+          <End Role="tblestudiantes" Type="Self.tblestudiantes" Multiplicity="0..1" />
+          <End Role="tblmatriculas" Type="Self.tblmatriculas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblestudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblmatriculas">
+              <PropertyRef Name="Idest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="colegiobdModelStoreContainer">
+          <EntitySet Name="tblcursos" EntityType="Self.tblcursos" Schema="colegiobd" store:Type="Tables" />
+          <EntitySet Name="tblestudiantes" EntityType="Self.tblestudiantes" Schema="colegiobd" store:Type="Tables" />
+          <EntitySet Name="tblmatriculas" EntityType="Self.tblmatriculas" Schema="colegiobd" store:Type="Tables" />
+          <AssociationSet Name="tblmatriculas_ibfk_1" Association="Self.tblmatriculas_ibfk_1">
+            <End Role="tblcursos" EntitySet="tblcursos" />
+            <End Role="tblmatriculas" EntitySet="tblmatriculas" />
+          </AssociationSet>
+          <AssociationSet Name="tblmatriculas_ibfk_2" Association="Self.tblmatriculas_ibfk_2">
+            <End Role="tblestudiantes" EntitySet="tblestudiantes" />
+            <End Role="tblmatriculas" EntitySet="tblmatriculas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="colegiobdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblcursos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nivel" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblmatriculas" Relationship="Self.tblmatriculas_ibfk_1" FromRole="tblcursos" ToRole="tblmatriculas" />
+        </EntityType>
+        <EntityType Name="tblestudiantes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblmatriculas" Relationship="Self.tblmatriculas_ibfk_2" FromRole="tblestudiantes" ToRole="tblmatriculas" />
+        </EntityType>
+        <EntityType Name="tblmatriculas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Idcurso" Type="Int32" />
+          <Property Name="Idest" Type="Int32" />
+          <Property Name="Nota" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblcursos" Relationship="Self.tblmatriculas_ibfk_1" FromRole="tblmatriculas" ToRole="tblcursos" />
+          <NavigationProperty Name="tblestudiantes" Relationship="Self.tblmatriculas_ibfk_2" FromRole="tblmatriculas" ToRole="tblestudiantes" />
+        </EntityType>
+        <Association Name="tblmatriculas_ibfk_1">
+          <End Role="tblcursos" Type="Self.tblcursos" Multiplicity="0..1" />
+          <End Role="tblmatriculas" Type="Self.tblmatriculas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcursos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblmatriculas">
+              <PropertyRef Name="Idcurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tblmatriculas_ibfk_2">
+          <End Role="tblestudiantes" Type="Self.tblestudiantes" Multiplicity="0..1" />
+          <End Role="tblmatriculas" Type="Self.tblmatriculas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblestudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblmatriculas">
+              <PropertyRef Name="Idest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="colegiobdEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblcursos" EntityType="Self.tblcursos" />
+          <EntitySet Name="tblestudiantes" EntityType="Self.tblestudiantes" />
+          <EntitySet Name="tblmatriculas" EntityType="Self.tblmatriculas" />
+          <AssociationSet Name="tblmatriculas_ibfk_1" Association="Self.tblmatriculas_ibfk_1">
+            <End Role="tblcursos" EntitySet="tblcursos" />
+            <End Role="tblmatriculas" EntitySet="tblmatriculas" />
+          </AssociationSet>
+          <AssociationSet Name="tblmatriculas_ibfk_2" Association="Self.tblmatriculas_ibfk_2">
+            <End Role="tblestudiantes" EntitySet="tblestudiantes" />
+            <End Role="tblmatriculas" EntitySet="tblmatriculas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="colegiobdModelStoreContainer" CdmEntityContainer="colegiobdEntities">
+          <EntitySetMapping Name="tblcursos">
+            <EntityTypeMapping TypeName="colegiobdModel.tblcursos">
+              <MappingFragment StoreEntitySet="tblcursos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblestudiantes">
+            <EntityTypeMapping TypeName="colegiobdModel.tblestudiantes">
+              <MappingFragment StoreEntitySet="tblestudiantes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmatriculas">
+            <EntityTypeMapping TypeName="colegiobdModel.tblmatriculas">
+              <MappingFragment StoreEntitySet="tblmatriculas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Idcurso" ColumnName="Idcurso" />
+                <ScalarProperty Name="Idest" ColumnName="Idest" />
+                <ScalarProperty Name="Nota" ColumnName="Nota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
